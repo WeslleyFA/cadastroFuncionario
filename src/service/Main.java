@@ -23,7 +23,7 @@ public class Main {
 
             for (int i = 0; i < qtdFunciorios; i++) {
                 Funcionario funcionario = new Funcionario();
-                System.out.println("ID: ");
+                System.out.println("Digite o ID: ");
                 idValido = false;
                 while(!idValido){
                     long idDigitado = scanner.nextLong();
@@ -36,10 +36,10 @@ public class Main {
                     }
                 }
 
-                System.out.println("Nome: ");
+                System.out.println("Digite o Nome: ");
                 funcionario.setNome(scanner.next());
 
-                System.out.println("Salário: ");
+                System.out.println("Digite o Salário: ");
                 funcionario.setSalario(scanner.nextDouble());
 
                 funcionarios.add(funcionario);
