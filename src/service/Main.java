@@ -14,34 +14,63 @@ public class Main {
     public static void main(String[] args) {
         int qtdFunciorios;
         boolean encerrar = false;
+        boolean idValido;
         List<Funcionario> funcionarios = new ArrayList<>();
-        Scanner sacnner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         do {
             System.out.println("Quantos funcionários serão cadastrados?");
-            qtdFunciorios = sacnner.nextInt();
+            qtdFunciorios = scanner.nextInt();
 
             for (int i = 0; i < qtdFunciorios; i++) {
                 Funcionario funcionario = new Funcionario();
                 System.out.println("ID: ");
-                funcionario.setId(sacnner.nextLong());
+                idValido = false;
+                while(!idValido){
+                    long idDigitado = scanner.nextLong();
+
+                    if(!funcionarios.stream().filter(x -> x.getId() == idDigitado).collect(Collectors.toList()).isEmpty()){
+                        System.out.println("Já existe um funcionário com esse ID, insira um novo");
+                    }else{
+                        funcionario.setId(idDigitado);
+                        idValido = true;
+                    }
+                }
 
                 System.out.println("Nome: ");
-                funcionario.setNome(sacnner.next());
+                funcionario.setNome(scanner.next());
 
-                System.out.println("Salario: ");
-                funcionario.setSalario(sacnner.nextDouble());
+                System.out.println("Salário: ");
+                funcionario.setSalario(scanner.nextDouble());
 
                 funcionarios.add(funcionario);
+                System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n ****************************************");
             }
 
-            System.out.println("Qual funcionário vc gostaria de mostrar? (por id)");
-            long idSelecionado = sacnner.nextLong();
-            System.out.println(funcionarios.stream().filter(x -> x.getId() == idSelecionado).collect(Collectors.toList()));
+            System.out.println("Qual funcionário vc gostaria de mostrar?");
+            System.out.println("ID's cadastrados: ");
+            for(Funcionario f : funcionarios){
+                System.out.println(" - " +f.getId());
+            }
+
+            idValido = false;
+            long guardaIdSelecionado = 0L;
+            while(!idValido){
+                long idSelecionado = scanner.nextLong();
+                if(funcionarios.stream().filter(x -> x.getId() == idSelecionado).collect(Collectors.toList()).isEmpty() ){
+                    System.out.println("Não existe um funcionário com esse ID, tente novamente");
+                }else{
+                    idValido = true;
+                    guardaIdSelecionado = idSelecionado;
+                }
+            }
+
+            long finalGuardaIdSelecionado = guardaIdSelecionado;
+            System.out.println(funcionarios.stream().filter(x -> x.getId() == finalGuardaIdSelecionado).collect(Collectors.toList()));
             System.out.println("Encerrar? [s/n]");
-            if(sacnner.next().equalsIgnoreCase("s")){
+            if(scanner.next().equalsIgnoreCase("s")){
                 encerrar = true;
             }
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n ****************************************");
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n ****************************************");
         }while (!encerrar);
     }
 }
